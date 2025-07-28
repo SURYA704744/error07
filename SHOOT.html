@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shoot Game</title>
+    <style>
+        body { background: #222; margin: 0; overflow: hidden; }
+        #gameArea {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            margin: 40px auto;
+            background: #333;
+            border: 2px solid #fff;
+            overflow: hidden;
+        }
+        #opponent {
+            position: absolute;
+            top: 50px;
+            left: 500px;
+            width: 64px;
+            height: 64px;
+            transition: opacity 0.3s;
+        }
+        #out {
+            position: absolute;
+            top: 50px;
+            left: 500px;
+            width: 64px;
+            height: 64px;
+            display: none;
+        }
+        #gun {
+            position: absolute;
+            bottom: 20px;
+            left: 268px;
+            width: 64px;
+            height: 64px;
+            background: url('https://cdn-icons-png.flaticon.com/512/69/69589.png') no-repeat center/contain;
+        }
+        .bullet {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            background: yellow;
+            left: 295px;
+            bottom: 84px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameArea">
+        <img id="opponent" src="img/bus.png" alt="opponent">
+        <img id="out" src="img/images.png" alt="out">
+        <div id="gun" src="img/kkk.png   "></div>
+    </div>
+    <script>
+        const gameArea = document.getElementById('gameArea');
+        const gun = document.getElementById('gun');
+        const opponent = document.getElementById('opponent');
+        const out = document.getElementById('out');
+
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space') shoot();
+        });
+
+        function shoot() {
+            const bullet = document.createElement('div');
+            bullet.className = 'bullet';
+            bullet.style.left = (gun.offsetLeft + 27) + 'px';
+            bullet.style.bottom = '84px';
+            gameArea.appendChild(bullet);
+
+            let bulletInterval = setInterval(() => {
+                let top = bullet.offsetTop - 10;
+                bullet.style.top = top + 'px';
+
+                // Collision detection
+                const bulletRect = bullet.getBoundingClientRect();
+                const opponentRect = opponent.getBoundingClientRect();
+
+                if (
+                    bulletRect.left < opponentRect.right &&
+                    bulletRect.right > opponentRect.left &&
+                    bulletRect.top < opponentRect.bottom &&
+                    bulletRect.bottom > opponentRect.top
+                ) {
+                    opponent.style.opacity = 0;
+                    out.style.display = 'block';
+                    clearInterval(bulletInterval);
+                    bullet.remove();
+                }
+
+                // Remove bullet if out of bounds
+                if (top < 0) {
+                    clearInterval(bulletInterval);
+                    bullet.remove();
+                }
+            }, 20);
+        }
+    </script>
+</body>
+</html>
