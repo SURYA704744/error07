@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Space Shooter Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+</style>
+
+
+<body>
+  <div id="game-area">
+    <img id="player" src="img/air.png" alt="spaceship" />
+  </div><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js"></script>
+
+<script>
+  VANTA.FOG({
+    el: "body",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    highlightColor: 0x551188,
+    midtoneColor: 0x220044,
+    lowlightColor: 0x000011,
+    baseColor: 0x000000,
+    blurFactor: 0.5,
+    speed: 2.0
+  });
+</script>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
